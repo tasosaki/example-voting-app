@@ -39,8 +39,11 @@ pipeline {
           steps{
             echo 'Packaging vote app with docker'
             script{
-              docker {
-                  def voteImage = docker.build("vote:v${env.BUILD_ID}", "./vote")
+              docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
+                  def voteImage = docker.build("tasosaki/vote:v${env.BUILD_ID}", "./vote")
+                  voteImage.push()
+                  voteImage.push("dev")
+	                voteImage.push("latest")
               }
             }
           }
