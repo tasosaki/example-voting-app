@@ -40,7 +40,7 @@ pipeline {
             echo 'Packaging vote app with docker'
             script{
               docker {
-                  def voteImage = docker.build("xxxxxx/vote:v${env.BUILD_ID}", "./vote")
+                  def voteImage = docker.build("vote:v${env.BUILD_ID}", "./vote")
               }
             }
           }
